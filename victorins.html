@@ -1,0 +1,152 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+        <head>
+            <title>Devil May Cry Fandom</title>
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="keywords" content="Devil May Cry, Сериалы, игры">
+            <meta name="author" content="Васильев Михаил">
+            <meta name="description" content="Devil May Cry Fandom">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href="./static/style.css">
+            <link rel="shortcut icon" href="./media/logo/logo.ico">
+        </head>
+        <body>
+            <div class="main-container">
+                <div class="main-container">
+                    <div class="background-image"></div>
+                        <div class="resizable-container">
+                            <div >
+                                <div class="header-wrapper">
+                                    <header class="logo-header">
+                                        <a  accesskey="z" href="./index.html">
+                                            <img src="./media/logo/Site-logo.webp" height="85" width="135"   alt="DMC Fandom">
+                                        </a>
+                                        <a href="./index.html" class="name-header">
+                                            DMC Фандом
+                                        </a>
+                                        <nav class="menu">
+                                            <div class="menu-item" data-submenu="menu">
+                                                            <span class="trigger">Меню </span>
+                                                            <div class="submenu" id="submenuid">
+                                                                <ul class="menu-list">
+                                                                    <li class=item-list>
+                                                                    <a href="./serials.html">Сериалы </a>
+                                                                    </li>
+                                                                    <li class=item-list>
+                                                                        <a href="./games.html">Игры </a>
+                                                                    </li>
+                                                                    <li class=item-list>
+                                                                        <a href="./characters.html">Персонажи </a>
+                                                                    </li >
+                                                                    <li class=item-list>
+                                                                        <a href="./victorins.html">Викторины </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>     
+                                            </div>
+                                        </nav>
+                                    </header>
+                                </div>
+                            </div>    
+                            <div class="page">
+                               
+                                <div id="content">
+                                    <div class="quiz-container">
+                                        <h1> Тест на знание Devil May Cry </h1>
+                                        <div id="question" class="question"></div>
+                                        <div class="options" id="options"></div>
+                                        <div class="score" id="score">Счёт: 0</div>
+                                        <button onclick="restartQuiz()" class="restart">Начать заново</button>
+                                    </div>       
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <div class="container">
+                                <p>Сайт создан в рамках курсовой работы по Основам Интернет Технологиям. Все материалы — фанатский некоммерческий проект.</p>
+                                <p>Курсовую Работу выполнил студент СПБГУТ им. М.А. Бонч-Бруевича Факультета РСР Васильев Михаил Ильич с группы РА-41 </p>
+                            </div>
+                        </div>
+                        
+                </div>
+            </div>
+            <script src="./static/script.js"></script>
+            <script>
+                let currentQuestion = 0;
+                let score = 0;
+                
+                const questions = [
+                    {
+                        question: "Откуда взяты имена сынов Спарды?",
+                        options: ["Преступление и наказание", "Божественная комедия", "Три товарища", "Мстители"],
+                        correct: 1
+                    },
+                    {
+                        question: "Чего не хватало Данте в 3 части?",
+                        options: ["СИЛЫ", "ЛЮБВИ", "ОЧКОВ ЖИЗНИ", "МОТИВАЦИИ"],
+                        correct: 3
+                    },
+                    {
+                        question: "Настоящее имя Леди",
+                        options: ["Триш", "Юлия", "Мэри", "Гвейн"],
+                        correct: 2
+                    },
+                    {
+                        question: "Кто отец Неро?",
+                        options: ["Аркхам", "Спарда", "Тони", "Вергилий"],
+                        correct: 3
+                    },
+                    {
+                        question: "Как называются парные мечи огня и ветра?",
+                        options: ["Агни и Рудра", "Игнис и Аурум", "Пламя и Шторм", "Чук и Гек"],
+                        correct: 0
+                    }
+                ];
+
+                function showQuestion() {
+                    const questionElem = document.getElementById('question');
+                    const optionsElem = document.getElementById('options');
+                    
+                    questionElem.innerHTML = questions[currentQuestion].question;
+                    optionsElem.innerHTML = '';
+                    
+                    questions[currentQuestion].options.forEach((option, index) => {
+                        const button = document.createElement('button');
+                        button.innerHTML = option;
+                        button.onclick = () => checkAnswer(index);
+                        optionsElem.appendChild(button);
+                    });
+                }
+
+                function checkAnswer(selected) {
+                    if (selected === questions[currentQuestion].correct) {
+                        score++;
+                        alert("Правильно!");
+                    } else {
+                        alert("Неверно! Правильный ответ: " + 
+                            questions[currentQuestion].options[questions[currentQuestion].correct]);
+                    }
+
+                    document.getElementById('score').innerHTML = `Счёт: ${score}`;
+                    
+                    currentQuestion++;
+                    if (currentQuestion < questions.length) {
+                        showQuestion();
+                    } else {
+                        alert(`На этом всё. Ваш результат: ${score}/${questions.length}`);
+                    }
+                }
+
+                function restartQuiz() {
+                    currentQuestion = 0;
+                    score = 0;
+                    document.getElementById('score').innerHTML = `Счёт: ${score}`;
+                    showQuestion();
+                }
+
+                window.onload = showQuestion;
+        </script>
+    </body>
+</html>
